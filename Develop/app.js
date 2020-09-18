@@ -10,34 +10,71 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
+// generate questions for team
 function promptQuestions() {
-    console.log("before inputs")
     return inquirer.prompt([
         {
-            type: "input",
-            message: "Enter Name",
-            name: "name"
-        },
-        {
-            type: "input",
-            message: "Enter ID Number",
-            name: "id"
-        },
-        {
-            type: "input",
-            message: "Enter your Email",
-            name: "email address"
-        },
-        {
-            type: "input",
-            message: "Enter your GitHub Username or affiliated school",
-            name: "GitHub Username"
-            // can use this input to ask the github api to list their repos
-        },
+            type: "checkbox",
+            message: "Are you an Engineer, Manager, or Intern?",
+            choices: 
+            [
+                "Engineer",
+                "Manager",
+                "Intern",
+            ],
+            name: "teamPosition"
+        }]).then(answers => {
+            if (teampPosition === choices[0]){
+                console.log("engineer")
+                //prompt engineer questions
+            } else if (teampPosition === choices[1]){
+                console.log("manager")
+                //prompt manager questions
+            } else if (teampPosition === choices[2]){
+                console.log("intern")
+                //prompt manager questions
+            }
+          });
+        }
+promptQuestions();
+//         {
+//             type: "input",
+//             message: "Enter Name",
+//             name: "name"
+//         },
+//         {
+//             type: "input",
+//             message: "Enter ID Number",
+//             name: "id"
+//         },
+//         {
+//             type: "input",
+//             message: "Enter your Email",
+//             name: "email address"
+//         },
+//         {
+//             type: "input",
+//             message: "Enter your github, or leave empty if not an engineer",
+//             name: "github",
+//             // can use this input to ask the github api to list their repos
+//         },
+//         {
+//             type: "input",
+//             message: "Enter your office number, if you are the Manager:",
+//             name: "officeNumber"
+//             // might need to split these into different prompt functions?? askbcs
+
+//         },
+//         {
+//             type: "input",
+//             message: "Enter your school, if intern:",
+//             name: "school",
+//         }
+//     ])
+// };
 
 
-])};
+// figure out if there is a way to base prompt questions off of this selection, like to call another set of prompts(by their function based off answer?)
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
