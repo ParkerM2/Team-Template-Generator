@@ -4,17 +4,18 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
+const util = require("util")
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+const writeFileAsync = util.promisify(fs.writeFile);
 const render = require("./lib/htmlRenderer");
-
+const OUTPUT_DIR = path.resolve(__dirname,"output");
+const outputPath = path.join(OUTPUT_DIR,"team.html")
 // generate questions for team
-function promptQuestions() {
+function promptMemberQuestions() {
     return inquirer.prompt([
         {
-            type: "checkbox",
+            type: "list",
             message: "Are you an Engineer, Manager, or Intern?",
             choices: 
             [
@@ -22,9 +23,9 @@ function promptQuestions() {
                 "Manager",
                 "Intern",
             ],
-            name: "teamPosition"
+            name: "Role"
         }]).then(answers => {
-            if (teampPosition === choices[0]){
+            when (teampPosition === choices[0]){
                 console.log("engineer")
                 //prompt engineer questions
             } else if (teampPosition === choices[1]){
