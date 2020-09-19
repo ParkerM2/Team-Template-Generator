@@ -20,7 +20,7 @@ class Employee {
     getSchool() {
         return this.school;
     };
-    getGitHub() {
+    getGithub() {
         return this.github;
     };
     getOfficeNumber() {

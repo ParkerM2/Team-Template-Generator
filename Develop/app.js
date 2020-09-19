@@ -60,7 +60,7 @@ function getManagerInfo() {
         {   
             type: "input",
             message: "Enter your Manager ID #",
-            name: "Manager ID"
+            name: "id"
         },
         {
             type: "input",
@@ -86,8 +86,8 @@ function getEngineerInfo() {
     inquirer.prompt([
         {
             type: "input",
-            message: "name",
-            name: "Engineer Name"
+            message: "Enter Name:",
+            name: "name"
         },
         {
             type: "input",
@@ -120,7 +120,7 @@ function getInternInfo() {
         {
             type: "input",
             message: "whats your name?",
-            name: "Intern name",
+            name: "name",
         },
         {
             typle: "input",
