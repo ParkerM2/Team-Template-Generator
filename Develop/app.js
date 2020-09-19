@@ -38,9 +38,9 @@ function promptMemberQuestions() {
 
                 case 'Intern':
                     getInternInfo();
+                break;
                 default:
                 // call function to build team page
-                console.log(newManager)
                 console.log("build team page")
                 buildTeamPlate();
                 
@@ -60,23 +60,23 @@ function getManagerInfo() {
         {   
             type: "input",
             message: "Enter your Manager ID #",
-            name: "Manager ID"
+            name: "id"
         },
         {
             type: "input",
             message: "Enter your email:",
-            name: "Manager Email"
+            name: "email"
         },
         {
             typle: "input",
             message: "Enter your office Number:",
-            name: "officeNum"
+            name: "officeNumber"
         }
     ]).then(answers => {
         console.log({ answers });
 
-        const {name, id, email, officeNum} = answers;
-        const newManager = new Manager(name, id, email, officeNum);
+        const {name, id, email, officeNumber} = answers;
+        const newManager = new Manager(name, id, email, officeNumber);
         teamMembers.push(newManager);
         promptMemberQuestions();
     })
@@ -86,28 +86,28 @@ function getEngineerInfo() {
     inquirer.prompt([
         {
             type: "input",
-            message: "name",
-            name: "Engineer Name"
+            message: "Enter Name:",
+            name: "name"
         },
         {
             type: "input",
             message: "Enter your id:",
-            name: "engineerId"
+            name: "id"
         },
         {
             type: "input",
-            message: "Enter your GitHub Username",
-            name: "github"
-        },
-        {
-            type: "input",
-            message: "Enter your Email Adress",
+            message: "Enter your email address",
             name: "email"
+        },
+        {
+            type: "input",
+            message: "Enter your github username",
+            name: "github"
         }
     ]).then(answers => {
         //creating answers , then add the info to the engineer constructer * .lib/Engineer *
-        const {name, engineerId, github, email} = answers;
-        const newEngineer = new Engineer(name,engineerId,github,email);
+        const {name, id, email, github} = answers;
+        const newEngineer = new Engineer(name, id, email, github);
         //adding the newly created obj new engineer to the declared array teamMembers
         teamMembers.push(newEngineer);
         promptMemberQuestions();
@@ -125,21 +125,21 @@ function getInternInfo() {
         {
             typle: "input",
             message: "Intern Id:",
-            name: "internID"
+            name: "id"
         },
         {
             input:"input",
             message: "whats your email",
-            name: "internEmail"
+            name: "email"
         },
         {
             type: "input",
             message: "What school intern",
-            name: "internSchool"
+            name: "school"
         }
     ]).then(answers => {
-        const {name,internID,internEmail,internSchool} = answers;
-        const newIntern = new Intern(name,internID,internEmail,internSchool);
+        const {name,id,email,school} = answers;
+        const newIntern = new Intern(name,id,email,school);
         teamMembers.push(newIntern);
         promptMemberQuestions();
     })
@@ -147,7 +147,7 @@ function getInternInfo() {
 // function to build the HTML with fs.writefilesynce
 function buildTeamPlate() {
     console.log(teamMembers)
-    fs.writeFileAsync(outputPath, render(teamMembers), 'utf-8')
+    fs.writeFileSync(outputPath, render(teamMembers), 'utf-8')
 }
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
