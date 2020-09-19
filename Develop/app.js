@@ -8,9 +8,7 @@ const util = require("util")
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const writeFileAsync = util.promisify(fs.writeFile);
-const render = require("./lib/htmlRenderer");
-const OUTPUT_DIR = path.resolve(__dirname,"output");
-const outputPath = path.join(OUTPUT_DIR,"team.html")
+const render = require("./lib/htmlRenderer")
 // generate questions for team
 function promptMemberQuestions() {
     return inquirer.prompt([
@@ -22,22 +20,61 @@ function promptMemberQuestions() {
                 "Engineer",
                 "Manager",
                 "Intern",
+                "Done"
             ],
             name: "Role"
         }]).then(answers => {
-            when (teampPosition === choices[0]){
-                console.log("engineer")
-                //prompt engineer questions
-            } else if (teampPosition === choices[1]){
-                console.log("manager")
+            switch (answers.Role){
+                case 'engineer':
+                    console.log("engineer")
+                //call engineer questions function here
+
+                break;
+                
+                case 'Manager':
+                    console.log("manager")
+                // call Manager questions function here
+
+                break;
+
+                case 'Intern':
+                    console.log("intern")
+                //call intern questions function here
+                default:
+                // call function to build team page
+             
+                console.log("build team page")
                 //prompt manager questions
-            } else if (teampPosition === choices[2]){
-                console.log("intern")
-                //prompt manager questions
-            }
-          });
+            };
+        })
+};
+promptMemberQuestions();
+// creating function for calling the managers questions
+function getManagerInfo() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Enter your Name:",
+            name: "name"
+
+        },
+        {   
+            type: "input",
+            message: "Enter your Manager ID #",
+            name: "Manager ID"
+        },
+        {
+            type: "input",
+            message: "Enter your email:",
+            name: "Manager Email"
+        },
+        {
+            typle: "input",
+            message: "Enter your office Number:",
+            name: "officeNum"
         }
-promptQuestions();
+    ])
+}
 //         {
 //             type: "input",
 //             message: "Enter Name",
