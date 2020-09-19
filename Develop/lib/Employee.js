@@ -8,28 +8,28 @@ class Employee {
         this.github = github;
         this.officeNumber = officeNumber;
     }
-    fetchName() {
+    getName() {
         return this.name;
     };
-    fetchId() {
+    getId() {
         return this.id;
     };
-    fetchEmail() {
+    getEmail() {
         return this.email;
     };
-    fetchSchool() {
+    getSchool() {
         return this.school;
     };
-    fetchGitHub() {
+    getGitHub() {
         return this.github;
     };
-    fetchOfficeNumber() {
+    getOfficeNumber() {
         return this.officeNumber;
     };
     // add in employee as role**
-    fetchRole() {
+    getRole() {
         console.log("get to work yo");
         return ("Employee");
     }
 };
-module.exports = Employee;
+module.exports = Employee

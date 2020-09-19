@@ -5,11 +5,11 @@ class Engineer extends Employee {
         super(name, id, email);
         this.github = github;
     };
-    fetchGitHub(){
+    getGitHub(){
         return this.github;
     };
-    fetchRole(){
+    getRole(){
         return ("Engineer")
     };
 };
-module.exports = Engineer;
+module.exports = Engineer

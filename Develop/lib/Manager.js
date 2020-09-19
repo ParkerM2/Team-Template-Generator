@@ -5,11 +5,11 @@ class Manager extends Employee {
             super(name, id, email);
             this.officeNumber = officeNumber;
     };
-    fetchOfficeNumber() {
+    getOfficeNumber() {
         return this.officeNumber
     };
-    fetchRole() {
+    getRole() {
         return ("Manager")
     };
 };
-module.exports = Manager;
+module.exports = Manager

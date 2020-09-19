@@ -38,9 +38,9 @@ function promptMemberQuestions() {
 
                 case 'Intern':
                     getInternInfo();
+                break;
                 default:
                 // call function to build team page
-                console.log(newManager)
                 console.log("build team page")
                 buildTeamPlate();
                 
@@ -120,7 +120,7 @@ function getInternInfo() {
         {
             type: "input",
             message: "whats your name?",
-            name: "name",
+            name: "Intern name",
         },
         {
             typle: "input",
@@ -147,7 +147,7 @@ function getInternInfo() {
 // function to build the HTML with fs.writefilesynce
 function buildTeamPlate() {
     console.log(teamMembers)
-    fs.writeFileAsync(outputPath, render(teamMembers), 'utf-8')
+    fs.writeFileSync(outputPath, render(teamMembers), 'utf-8')
 }
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
