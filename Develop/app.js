@@ -1,4 +1,4 @@
-const Manager = require("./lib/Manager");
+const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
@@ -9,6 +9,8 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const writeFileAsync = util.promisify(fs.writeFile);
 const render = require("./lib/htmlRenderer")
+// Array for all of the team member objects to be pushed
+teamMembers = [];
 // generate questions for team
 function promptMemberQuestions() {
     return inquirer.prompt([
@@ -24,27 +26,24 @@ function promptMemberQuestions() {
             ],
             name: "Role"
         }]).then(answers => {
+            // call functions(that contain prompts) for each of the team members on done initialize the writing of the new html file with the array of team members objects
             switch (answers.Role){
-                case 'engineer':
-                    console.log("engineer")
-                //call engineer questions function here
-
+                case 'Engineer':
+                    getEngineerInfo();
                 break;
                 
                 case 'Manager':
-                    console.log("manager")
-                // call Manager questions function here
-
+                    getManagerInfo();
                 break;
 
                 case 'Intern':
-                    console.log("intern")
-                //call intern questions function here
+                    getInternInfo();
                 default:
                 // call function to build team page
-             
+                console.log(newManager)
                 console.log("build team page")
-                //prompt manager questions
+                buildTeamPlate();
+                
             };
         })
 };
@@ -73,47 +72,83 @@ function getManagerInfo() {
             message: "Enter your office Number:",
             name: "officeNum"
         }
-    ])
+    ]).then(answers => {
+        console.log({ answers });
+
+        const {name, id, email, officeNum} = answers;
+        const newManager = new Manager(name, id, email, officeNum);
+        teamMembers.push(newManager);
+        promptMemberQuestions();
+    })
 }
-//         {
-//             type: "input",
-//             message: "Enter Name",
-//             name: "name"
-//         },
-//         {
-//             type: "input",
-//             message: "Enter ID Number",
-//             name: "id"
-//         },
-//         {
-//             type: "input",
-//             message: "Enter your Email",
-//             name: "email address"
-//         },
-//         {
-//             type: "input",
-//             message: "Enter your github, or leave empty if not an engineer",
-//             name: "github",
-//             // can use this input to ask the github api to list their repos
-//         },
-//         {
-//             type: "input",
-//             message: "Enter your office number, if you are the Manager:",
-//             name: "officeNumber"
-//             // might need to split these into different prompt functions?? askbcs
 
-//         },
-//         {
-//             type: "input",
-//             message: "Enter your school, if intern:",
-//             name: "school",
-//         }
-//     ])
-// };
+function getEngineerInfo() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "name",
+            name: "Engineer Name"
+        },
+        {
+            type: "input",
+            message: "Enter your id:",
+            name: "engineerId"
+        },
+        {
+            type: "input",
+            message: "Enter your GitHub Username",
+            name: "github"
+        },
+        {
+            type: "input",
+            message: "Enter your Email Adress",
+            name: "email"
+        }
+    ]).then(answers => {
+        //creating answers , then add the info to the engineer constructer * .lib/Engineer *
+        const {name, engineerId, github, email} = answers;
+        const newEngineer = new Engineer(name,engineerId,github,email);
+        //adding the newly created obj new engineer to the declared array teamMembers
+        teamMembers.push(newEngineer);
+        promptMemberQuestions();
+    })
+}
 
-
-// figure out if there is a way to base prompt questions off of this selection, like to call another set of prompts(by their function based off answer?)
-
+// Function for intern prompts
+function getInternInfo() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "whats your name?",
+            name: "name",
+        },
+        {
+            typle: "input",
+            message: "Intern Id:",
+            name: "internID"
+        },
+        {
+            input:"input",
+            message: "whats your email",
+            name: "internEmail"
+        },
+        {
+            type: "input",
+            message: "What school intern",
+            name: "internSchool"
+        }
+    ]).then(answers => {
+        const {name,internID,internEmail,internSchool} = answers;
+        const newIntern = new Intern(name,internID,internEmail,internSchool);
+        teamMembers.push(newIntern);
+        promptMemberQuestions();
+    })
+}
+// function to build the HTML with fs.writefilesynce
+function buildTeamPlate() {
+    console.log(teamMembers)
+    fs.writeFileAsync(outputPath, render(teamMembers), 'utf-8')
+}
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
