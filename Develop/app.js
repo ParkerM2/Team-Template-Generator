@@ -123,7 +123,7 @@ function getInternInfo() {
             name: "name",
         },
         {
-            typle: "input",
+            type: "input",
             message: "Intern Id:",
             name: "id"
         },
@@ -144,7 +144,7 @@ function getInternInfo() {
         promptMemberQuestions();
     })
 }
-// function to build the HTML with fs.writefilesynce
+// function to build the HTML with fs.writefilesync
 function buildTeamPlate() {
     console.log(teamMembers)
     fs.writeFileSync(outputPath, render(teamMembers), 'utf-8')
