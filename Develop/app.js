@@ -68,7 +68,7 @@ function getManagerInfo() {
             name: "email"
         },
         {
-            typle: "input",
+            type: "input",
             message: "Enter your office Number:",
             name: "officeNumber"
         }
